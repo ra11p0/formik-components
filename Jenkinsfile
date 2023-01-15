@@ -75,10 +75,8 @@ pipeline{
         }
         
         stage('build'){
-            stage('build frontend'){
-                steps {
-                    sh 'npm run build;'
-                }
+            steps {
+                sh 'npm run build;'
             }
         }
     }

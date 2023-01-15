@@ -13,7 +13,7 @@
     "start": "vite",
     "vitebuild": "tsc && vite build",
     "prepublish": "npm run build",
-    "build": "npm run clean && tsc && cp package.json README.md ./dist",
+    "build": "(npm run clean || true) && tsc && cp package.json README.md ./dist",
     "clean": "rm -rf dist/*",
     "test": "vitest",
     "dev": "vite",

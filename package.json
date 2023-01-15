@@ -12,7 +12,6 @@
   "scripts": {
     "start": "vite",
     "vitebuild": "tsc && vite build",
-    "prepublish": "npm run build",
     "build": "(npm run clean || true) && tsc && cp package.json README.md ./dist",
     "clean": "rm -rf dist/*",
     "test": "vitest",

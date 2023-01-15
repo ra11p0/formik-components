@@ -29,7 +29,7 @@ def preparePackageJson() {
 
     packageJson = jsonSlurpLax(packageJsonTemplate)
 
-    packageJson.version = "0.1" + env.BUILD_NUMBER
+    packageJson.version = "0.1." + env.BUILD_NUMBER
 
     def jsonPrepared = new JsonBuilder(packageJson).toPrettyString()
 
@@ -71,6 +71,7 @@ pipeline{
                 preparePackageJson()
                 sh 'rm -f tsconfig.json'
                 sh 'mv tsconfig.release.json tsconfig.json'
+                sh "rm -fr ./dist/* || true"
             }
         }
         

@@ -1,0 +1,68 @@
+import _ from "lodash";
+import React, { ReactElement } from "react";
+import ReactDatePicker from "react-datepicker";
+
+export interface FormikDatePickerProps {
+  id?: string;
+  minDate?: Date;
+  maxDate?: Date;
+  locale?: string;
+  testId?: string;
+  name: string;
+  label?: string;
+  formik: {
+    setFieldValue: (fieldName: string, value: Date | undefined) => void;
+    handleChange: (evt: React.ChangeEvent<any>) => void;
+    handleBlur: (evt: React.ChangeEvent<any>) => void;
+    values: any;
+    errors: any;
+    touched: any;
+  };
+  onChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function FormikDatePicker({
+  formik,
+  locale,
+  name,
+  testId,
+  minDate,
+  maxDate,
+  id,
+}: FormikDatePickerProps): ReactElement {
+  return (
+    <>
+      <ReactDatePicker
+        minDate={minDate}
+        maxDate={maxDate}
+        data-testid={testId ?? id ?? name}
+        id={id ?? name}
+        name={name}
+        selected={_.get(formik.values, name)}
+        className={`form-control ${
+          _.get(formik.errors, name) && _.get(formik.touched, name)
+            ? "is-invalid"
+            : ""
+        } ${
+          !_.get(formik.errors, name) && _.get(formik.touched, name)
+            ? "is-valid"
+            : ""
+        }`}
+        onChange={(evt) => {
+          if (evt) {
+            formik.setFieldValue(name, evt);
+            return;
+          }
+          formik.setFieldValue(name, undefined);
+        }}
+        onBlur={(evt) => {
+          formik.handleBlur(evt);
+        }}
+        locale={locale}
+        dateFormat="P"
+      />
+    </>
+  );
+}
+
+export default FormikDatePicker;

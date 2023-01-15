@@ -84,6 +84,9 @@ pipeline{
         
         stage('publish'){
             steps {
+                sh "echo //npm.ra11p0dev.ovh/:_authToken=${params.npmToken} > .npmrc"
+                sh 'npm whoami'
+                sh 'rm .npmrc'
                 sh 'npm publish --registry npm.ra11p0dev.ovh;'
             }
         }

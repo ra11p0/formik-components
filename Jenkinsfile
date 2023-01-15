@@ -81,6 +81,12 @@ pipeline{
                 sh 'npm run build;'
             }
         }
+        
+        stage('publish'){
+            steps {
+                sh 'npm publish --registry npm.ra11p0dev.ovh;'
+            }
+        }
     }
     post{
         success{

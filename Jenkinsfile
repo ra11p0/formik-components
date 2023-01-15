@@ -4,7 +4,7 @@ import groovy.json.*
 void setBuildStatus(String message, String state) {
   step([
       $class: "GitHubCommitStatusSetter",
-      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/ra11p0/gradebook"],
+      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/ra11p0/formik-components"],
       contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
       errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
       statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
@@ -50,7 +50,7 @@ pipeline{
                 script {
                     System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
                 }
-                checkout([$class: 'GitSCM', branches: [[name:  params.gitBranchPattern]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ra11p0/gradebook.git']]])
+                checkout([$class: 'GitSCM', branches: [[name:  'main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ra11p0/formik-components.git']]])
             }
         }  
     

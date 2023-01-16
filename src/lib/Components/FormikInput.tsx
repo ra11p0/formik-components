@@ -2,36 +2,26 @@ import { FormikProps, useFormikContext } from 'formik';
 import _ from 'lodash';
 import React, { ReactElement } from 'react';
 import { Form } from 'react-bootstrap';
+import Field from './Field';
 import FormikDatePicker, { FormikDatePickerProps } from './FormikDatePicker';
 import FormikValidationLabel from './FormikValidationLabel';
-
-interface Props<T> {
-  testId?: string;
-  id?: string;
-  name: string;
-  label?: string;
-  value?: string;
-  type?:
-    | 'date'
-    | 'switch'
-    | 'password'
-    | 'email'
-    | 'textarea'
-    | 'checkbox'
-    | 'radio';
-  formik?: FormikProps<T>;
-  onChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void;
-  showErrorsDespiteTouching?: boolean;
-  hideValidation?: boolean;
-}
+import Label from './Label';
 
 function FormikInput<T>(
-  props: Props<T> & ({} | FormikDatePickerProps)
+  props: Field<T> & ({} | FormikDatePickerProps<T>)
 ): ReactElement {
   const formikContext = useFormikContext<T>();
-  const formik = (): FormikProps<T> => props.formik ?? formikContext;
+
+  const formik = (p: Field<T>): FormikProps<T> => p.formik ?? formikContext;
+
+  const isFieldValid = (p: Field<T>): boolean =>
+    !_.get(formik(p).errors, p.name) && _.get(formik(p).touched, p.name);
+
+  const isFieldInvalid = (p: Field<T>): boolean =>
+    _.get(formik(p).errors, p.name) && _.get(formik(p).touched, p.name);
+
   return (
-    <Form.Group className="m-1 p-1">
+    <Form.Group>
       {(() => {
         switch (props.type) {
           case 'radio':
@@ -44,23 +34,17 @@ function FormikInput<T>(
                   name={props.name}
                   label={props.label ?? props.name}
                   checked={
-                    _.get(formik().values, props.name).toString() ===
+                    _.get(formik(props).values, props.name).toString() ===
                     props.value?.toString()
                   }
                   value={props.value}
                   onChange={(evt) => {
-                    formik().handleChange(evt);
+                    formik(props).handleChange(evt);
                     if (props.onChange) props.onChange(evt);
                   }}
-                  onBlur={formik().handleBlur}
-                  isInvalid={
-                    _.get(formik().errors, props.name) &&
-                    _.get(formik().touched, props.name)
-                  }
-                  isValid={
-                    !_.get(formik().errors, props.name) &&
-                    _.get(formik().touched, props.name)
-                  }
+                  onBlur={formik(props).handleBlur}
+                  isInvalid={isFieldInvalid(props)}
+                  isValid={isFieldValid(props)}
                 />
               </>
             );
@@ -73,20 +57,15 @@ function FormikInput<T>(
                   id={props.id ?? props.name}
                   name={props.name}
                   label={props.label ?? props.name}
-                  checked={_.get(formik().values, props.name)}
+                  checked={_.get(formik(props).values, props.name)}
                   onChange={(evt) => {
-                    formik().handleChange(evt);
+                    formik(props).handleChange(evt);
                     if (props.onChange) props.onChange(evt);
                   }}
-                  onBlur={formik().handleBlur}
-                  isInvalid={
-                    _.get(formik().errors, props.name) &&
-                    _.get(formik().touched, props.name)
-                  }
-                  isValid={
-                    !_.get(formik().errors, props.name) &&
-                    _.get(formik().touched, props.name)
-                  }
+                  value={props.value}
+                  onBlur={formik(props).handleBlur}
+                  isInvalid={isFieldInvalid(props)}
+                  isValid={isFieldValid(props)}
                 />
               </>
             );
@@ -99,81 +78,77 @@ function FormikInput<T>(
                   id={props.id ?? props.name}
                   name={props.name}
                   label={props.label ?? props.name}
-                  checked={_.get(formik().values, props.name)}
+                  checked={_.get(formik(props).values, props.name)}
                   onChange={(evt) => {
-                    formik().handleChange(evt);
+                    formik(props).handleChange(evt);
                     if (props.onChange) props.onChange(evt);
                   }}
-                  onBlur={formik().handleBlur}
-                  isInvalid={
-                    _.get(formik().errors, props.name) &&
-                    _.get(formik().touched, props.name)
-                  }
-                  isValid={
-                    !_.get(formik().errors, props.name) &&
-                    _.get(formik().touched, props.name)
-                  }
+                  value={props.value}
+                  onBlur={formik(props).handleBlur}
+                  isInvalid={isFieldInvalid(props)}
+                  isValid={isFieldValid(props)}
                 />
               </>
             );
           case 'date':
             return (
               <>
-                <Form.Label htmlFor={props.name}>
-                  {props.label ?? props.name}
-                </Form.Label>
-                <FormikDatePicker {...props} formik={formik()} />
+                <Label
+                  label={props.label ?? props.name}
+                  for={props.name}
+                  size={props.size}
+                />
+                <FormikDatePicker {...props} formik={formik(props)} />
               </>
             );
           case 'textarea':
             return (
               <>
-                {props.label !== '' && (
-                  <Form.Label htmlFor={props.name}>
-                    {props.label ?? props.name}
-                  </Form.Label>
-                )}
-
+                <Label
+                  label={props.label ?? props.name}
+                  for={props.name}
+                  size={props.size}
+                />
                 <textarea
                   data-testid={props.testId ?? props.id ?? props.name}
                   className="form-control"
                   id={props.id ?? props.name}
                   name={props.name}
                   onChange={(evt: any) => {
-                    formik().handleChange(evt);
+                    formik(props).handleChange(evt);
                     if (props.onChange) props.onChange(evt);
                   }}
-                  onBlur={formik().handleBlur}
-                  value={_.get(formik().values, props.name) ?? ''}
+                  onBlur={formik(props).handleBlur}
+                  value={
+                    _.get(formik(props).values, props.name) ?? props.value ?? ''
+                  }
                 />
               </>
             );
           default:
             return (
               <>
-                <Form.Label htmlFor={props.name}>
-                  {props.label ?? props.name}
-                </Form.Label>
+                <Label
+                  label={props.label ?? props.name}
+                  for={props.name}
+                  size={props.size}
+                />
                 <Form.Control
+                  size={props.size}
                   data-testid={props.testId ?? props.id ?? props.name}
-                  className="form-control"
                   id={props.id ?? props.name}
                   name={props.name}
                   type={props.type ?? 'text'}
                   onChange={(evt: any) => {
-                    formik().handleChange(evt);
+                    formik(props).handleChange(evt);
                     if (props.onChange) props.onChange(evt);
                   }}
-                  isInvalid={
-                    _.get(formik().errors, props.name) &&
-                    _.get(formik().touched, props.name)
+                  isInvalid={isFieldInvalid(props)}
+                  isValid={isFieldValid(props)}
+                  onBlur={formik(props).handleBlur}
+                  value={
+                    _.get(formik(props).values, props.name) ?? props.value ?? ''
                   }
-                  isValid={
-                    !_.get(formik().errors, props.name) &&
-                    _.get(formik().touched, props.name)
-                  }
-                  onBlur={formik().handleBlur}
-                  value={_.get(formik().values, props.name) ?? ''}
                 />
               </>
             );
@@ -183,7 +158,7 @@ function FormikInput<T>(
         <FormikValidationLabel
           {...props}
           showDespiteTouching={props.showErrorsDespiteTouching}
-          formik={formik()}
+          formik={formik(props)}
         />
       )}
     </Form.Group>

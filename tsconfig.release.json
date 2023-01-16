@@ -13,10 +13,9 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false,
     "jsx": "react-jsx",
     "declaration": true
   },
   "include": ["src/lib/**/*.ts", "src/lib/**/*.tsx"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "exclude": ["node_modules", "vite.config.ts"]
 }

@@ -1,8 +1,9 @@
-import _ from "lodash";
-import React, { ReactElement } from "react";
-import ReactDatePicker from "react-datepicker";
+import { FormikProps } from 'formik';
+import _ from 'lodash';
+import React, { ReactElement } from 'react';
+import ReactDatePicker from 'react-datepicker';
 
-export interface FormikDatePickerProps {
+export interface FormikDatePickerProps<T> {
   id?: string;
   minDate?: Date;
   maxDate?: Date;
@@ -10,18 +11,12 @@ export interface FormikDatePickerProps {
   testId?: string;
   name: string;
   label?: string;
-  formik: {
-    setFieldValue: (fieldName: string, value: Date | undefined) => void;
-    handleChange: (evt: React.ChangeEvent<any>) => void;
-    handleBlur: (evt: React.ChangeEvent<any>) => void;
-    values: any;
-    errors: any;
-    touched: any;
-  };
+  formik: FormikProps<T>;
+  size?: 'sm' | 'lg';
   onChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function FormikDatePicker({
+function FormikDatePicker<T>({
   formik,
   locale,
   name,
@@ -29,7 +24,8 @@ function FormikDatePicker({
   minDate,
   maxDate,
   id,
-}: FormikDatePickerProps): ReactElement {
+  size,
+}: FormikDatePickerProps<T>): ReactElement {
   return (
     <>
       <ReactDatePicker
@@ -39,14 +35,14 @@ function FormikDatePicker({
         id={id ?? name}
         name={name}
         selected={_.get(formik.values, name)}
-        className={`form-control ${
+        className={`${size === 'sm' ? 'form-control-sm' : ''} form-control ${
           _.get(formik.errors, name) && _.get(formik.touched, name)
-            ? "is-invalid"
-            : ""
+            ? 'is-invalid'
+            : ''
         } ${
           !_.get(formik.errors, name) && _.get(formik.touched, name)
-            ? "is-valid"
-            : ""
+            ? 'is-valid'
+            : ''
         }`}
         onChange={(evt) => {
           if (evt) {

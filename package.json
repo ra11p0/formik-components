@@ -9,13 +9,16 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ra11p0/formik-components.git"
+  },
   "scripts": {
     "start": "vite",
     "vitebuild": "tsc && vite build",
     "build": "tsc && cp package.json README.md ./dist",
     "clean": "rm -rf dist/*",
     "test": "vitest",
-    "dev": "vite",
     "preview": "vite preview",
     "lint:code": "eslint ./src --ext .js,.ts,.jsx,.tsx"
   },

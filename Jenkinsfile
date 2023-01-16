@@ -29,7 +29,7 @@ def preparePackageJson() {
 
     packageJson = jsonSlurpLax(packageJsonTemplate)
 
-    packageJson.version = "0.1." + env.BUILD_NUMBER
+    packageJson.version = params.packageVersion
 
     def jsonPrepared = new JsonBuilder(packageJson).toPrettyString()
 
@@ -84,11 +84,10 @@ pipeline{
         
         stage('publish'){
             steps {
-                String text = "//npm.ra11p0dev.ovh/:_authToken=${params.npmToken}" 
-                String npmrc = '\$HOME/.npmrc' 
-                writeFile file: npmrc, text: text 
-                try { sh 'npm publish --registry npm.ra11p0dev.ovh;' } 
-                finally { sh "rm ${npmrc}" } 
+                script{
+                    sh 'npm-cli-login -u '+params.npmUsername+' -p '+params.npmPassword.plainText+' -e '+params.npmEmail+' -r http://npm.ra11p0dev.ovh:8080';
+                    sh 'npm publish --registry http://npm.ra11p0dev.ovh:8080' 
+                }
             }
         }
     }

@@ -84,10 +84,11 @@ pipeline{
         
         stage('publish'){
             steps {
-                sh "echo //npm.ra11p0dev.ovh/:_authToken=${params.npmToken} > .npmrc"
-                sh 'npm whoami'
-                sh 'rm .npmrc'
-                sh 'npm publish --registry npm.ra11p0dev.ovh;'
+                String text = "//npm.ra11p0dev.ovh/:_authToken=${params.npmToken}" 
+                String npmrc = '\$HOME/.npmrc' 
+                writeFile file: npmrc, text: text 
+                try { sh 'npm publish --registry npm.ra11p0dev.ovh;' } 
+                finally { sh "rm ${npmrc}" } }
             }
         }
     }

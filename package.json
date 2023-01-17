@@ -1,6 +1,6 @@
 {
   "name": "@ra11p0/formik-components",
-  "version": "0.1.9",
+  "version": "0.1.11",
   "private": false,
   "type": "module",
   "main": "./dist/formik-components/main.js",

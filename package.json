@@ -17,7 +17,7 @@
     "start": "vite",
     "vitebuild": "tsc && vite build",
     "build": "tsc",
-    "copyFiles": "cp package.json README.md ./dist && cp ./src/lib/Components/common.css ./dist/lib/Components",
+    "copyFiles": "cp package.json README.md ./dist && cp ./src/lib/Components/common.css ./dist/Components",
     "clean": "rm -rf dist/*",
     "test": "vitest",
     "preview": "vite preview",

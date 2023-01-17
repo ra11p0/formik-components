@@ -1,6 +1,6 @@
 {
   "name": "@ra11p0/formik-components",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "private": false,
   "type": "module",
   "main": "./dist/formik-components/main.js",
@@ -16,7 +16,7 @@
   "scripts": {
     "start": "vite",
     "vitebuild": "tsc && vite build",
-    "build": "tsc && cp package.json README.md ./dist && cp ./src/lib/Components/common.css ./dist/lib/Components/common.css",
+    "build": "tsc && cp package.json README.md ./dist && cp ./src/lib/Components/common.css ./dist/lib/Components",
     "clean": "rm -rf dist/*",
     "test": "vitest",
     "preview": "vite preview",

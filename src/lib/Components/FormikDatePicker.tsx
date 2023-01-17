@@ -1,6 +1,9 @@
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormikProps } from 'formik';
 import _ from 'lodash';
 import React, { ReactElement } from 'react';
+import { InputGroup } from 'react-bootstrap';
 import ReactDatePicker from 'react-datepicker';
 
 export interface FormikDatePickerProps<T> {
@@ -28,35 +31,42 @@ function FormikDatePicker<T>({
 }: FormikDatePickerProps<T>): ReactElement {
   return (
     <>
-      <ReactDatePicker
-        minDate={minDate}
-        maxDate={maxDate}
-        data-testid={testId ?? id ?? name}
-        id={id ?? name}
-        name={name}
-        selected={_.get(formik.values, name)}
-        className={`${size === 'sm' ? 'form-control-sm' : ''} form-control ${
-          _.get(formik.errors, name) && _.get(formik.touched, name)
-            ? 'is-invalid'
-            : ''
-        } ${
-          !_.get(formik.errors, name) && _.get(formik.touched, name)
-            ? 'is-valid'
-            : ''
-        }`}
-        onChange={(evt) => {
-          if (evt) {
-            formik.setFieldValue(name, evt);
-            return;
-          }
-          formik.setFieldValue(name, undefined);
-        }}
-        onBlur={(evt) => {
-          formik.handleBlur(evt);
-        }}
-        locale={locale}
-        dateFormat="P"
-      />
+      <InputGroup className="flex-nowrap">
+        <span className="input-group-text">
+          <FontAwesomeIcon icon={faCalendarDays} />
+        </span>
+        <ReactDatePicker
+          minDate={minDate}
+          maxDate={maxDate}
+          data-testid={testId ?? id ?? name}
+          id={id ?? name}
+          name={name}
+          selected={_.get(formik.values, name)}
+          className={`${
+            size === 'sm' ? 'form-control-sm' : ''
+          } form-control border-left-no-radius  ${
+            _.get(formik.errors, name) && _.get(formik.touched, name)
+              ? 'is-invalid'
+              : ''
+          } ${
+            !_.get(formik.errors, name) && _.get(formik.touched, name)
+              ? 'is-valid'
+              : ''
+          }`}
+          onChange={(evt) => {
+            if (evt) {
+              formik.setFieldValue(name, evt);
+              return;
+            }
+            formik.setFieldValue(name, undefined);
+          }}
+          onBlur={(evt) => {
+            formik.handleBlur(evt);
+          }}
+          locale={locale}
+          dateFormat="P"
+        />
+      </InputGroup>
     </>
   );
 }

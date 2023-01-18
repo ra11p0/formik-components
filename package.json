@@ -1,8 +1,7 @@
 {
   "name": "@ra11p0/formik-components",
-  "version": "0.1.12-3",
+  "version": "0.1.13",
   "private": false,
-  "type": "module",
   "main": "./dist/esm/main.js",
   "module": "./dist/cjs/main.js",
   "types": "./dist/types/main.d.ts",

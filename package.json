@@ -23,7 +23,7 @@
     "vitebuild": "tsc && vite build",
     "build": "tsc",
     "build:production": "tsc --project tsconfig.esm.json & tsc --project tsconfig.cjs.json",
-    "copyFiles": "cp ./src/lib/Components/common.css ./dist/cjs/Components & cp ./src/lib/Components/common.css ./dist/esm/Components",
+    "copyFiles": "cp ./src/lib/Components/common.module.css ./dist/cjs/Components & cp ./src/lib/Components/common.module.css ./dist/esm/Components",
     "clean": "rm -rf dist/*",
     "test": "vitest",
     "preview": "vite preview",

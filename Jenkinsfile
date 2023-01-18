@@ -78,7 +78,7 @@ pipeline{
         
         stage('build'){
             steps {
-                sh 'npm run build;'
+                sh 'npm run build:production;'
                 sh 'npm run copyFiles;'
             }
         }

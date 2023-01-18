@@ -8,15 +8,17 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "outDir": "dist",
+    "outDir": "dist/esm",
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "declaration": true
+    "declaration": true,
+    "declarationDir": "dist/types"
   },
-  "include": ["src/lib/**/*.ts", "src/lib/**/*.tsx"],
+  "files": ["src/lib/main.ts"],
+  "include": ["src/lib/**/*", "src/lib/**/*"],
   "exclude": ["node_modules", "vite.config.ts"]
 }

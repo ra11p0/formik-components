@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-datepicker/dist/react-datepicker.css';
-import './common.css';
 import { FormikProps, useFormikContext } from 'formik';
 import _ from 'lodash';
 import { ReactElement } from 'react';

@@ -11,7 +11,8 @@
     "plugin:i18n-json/recommended",
     "plugin:react/recommended",
     "standard-with-typescript",
-    "prettier"
+    "prettier",
+    "plugin:css-modules/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "overrides": [
@@ -32,7 +33,7 @@
     "coverage/**",
     "index.html"
   ],
-  "plugins": ["react", "@typescript-eslint", "unused-imports"],
+  "plugins": ["react", "@typescript-eslint", "unused-imports", "css-modules"],
   "rules": {
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",

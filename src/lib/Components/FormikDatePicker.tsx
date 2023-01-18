@@ -1,3 +1,5 @@
+/* eslint-disable unused-imports/no-unused-imports */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormikProps } from 'formik';
@@ -5,6 +7,7 @@ import _ from 'lodash';
 import React, { ReactElement } from 'react';
 import { InputGroup } from 'react-bootstrap';
 import ReactDatePicker from 'react-datepicker';
+import * as style from './common.module.css';
 
 export interface FormikDatePickerProps<T> {
   id?: string;

@@ -3,7 +3,7 @@
   "version": "0.1.12",
   "private": false,
   "type": "module",
-  "main": "./dist/formik-components/main.js",
+  "main": "./dist/main.js",
   "module": "./dist/main.js",
   "types": "./dist/main.d.ts",
   "files": [

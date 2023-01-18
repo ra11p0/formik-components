@@ -69,8 +69,8 @@ pipeline{
         stage('prepare files') {
             steps {
                 //preparePackageJson()
-                sh 'rm -f tsconfig.json'
-                sh 'mv tsconfig.release.json tsconfig.json'
+                //sh 'rm -f tsconfig.json'
+                //sh 'mv tsconfig.release.json tsconfig.json'
                 sh "rm -fr ./dist || true"
                 sh "mkdir dist"
             }

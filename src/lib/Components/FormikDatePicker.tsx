@@ -7,7 +7,7 @@ import _ from 'lodash';
 import React, { ReactElement } from 'react';
 import { InputGroup } from 'react-bootstrap';
 import ReactDatePicker from 'react-datepicker';
-import * as style from './common.module.css';
+import style from './common.module.css';
 
 export interface FormikDatePickerProps<T> {
   id?: string;
@@ -47,7 +47,8 @@ function FormikDatePicker<T>({
           selected={_.get(formik.values, name)}
           className={`${
             size === 'sm' ? 'form-control-sm' : ''
-          } form-control border-left-no-radius  ${
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          } form-control ${style['border-left-no-radius']}  ${
             _.get(formik.errors, name) && _.get(formik.touched, name)
               ? 'is-invalid'
               : ''

@@ -12,7 +12,7 @@ import Label from './Label';
 function FormikInput<T>(
   props: Field<T> & ({} | FormikDatePickerProps<T>)
 ): ReactElement {
-  const formikContext = props.formik ? useFormikContext<T>() : undefined;
+  const formikContext = props.formik ? undefined : useFormikContext<T>();
 
   const formik = (p: Field<T>): FormikProps<T> => p.formik ?? formikContext!;
 

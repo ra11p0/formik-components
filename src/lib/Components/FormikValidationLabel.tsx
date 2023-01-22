@@ -24,11 +24,13 @@ function FormikValidationLabel<T>(props: Props<T>): ReactElement {
   };
   return (
     <Collapse in={hasError()}>
-      <Label
-        label={getErrorText(props)}
-        size={props.size}
-        className="invalid-feedback d-block"
-      />
+      <>
+        <Label
+          label={getErrorText(props)}
+          size={props.size}
+          className="invalid-feedback d-block"
+        />
+      </>
     </Collapse>
   );
 }

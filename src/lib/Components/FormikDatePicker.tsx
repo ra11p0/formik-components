@@ -57,6 +57,14 @@ function FormikDatePicker<T>({
               ? 'is-valid'
               : ''
           }`}
+          onChangeRaw={(evt) => {
+            const val = evt?.target?.value;
+            if (val) {
+              formik.setFieldValue(name, val);
+              return;
+            }
+            formik.setFieldValue(name, undefined);
+          }}
           onChange={(evt) => {
             if (evt) {
               formik.setFieldValue(name, evt);
